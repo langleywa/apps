@@ -19,6 +19,11 @@
 <script>
 var map = L.mapbox.map('map', 'examples.map-i86nkdio')
     .setView([48.0369, -122.4085], 13);
+
+var featureLayer = L.mapbox.featureLayer()
+    .loadURL('/gisdata/geojson/citylimitsline_4326.geojson')
+    .addTo(map);
+
 </script>
 
 </body>
