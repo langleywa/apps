@@ -10,12 +10,18 @@ $(document).ready(function() {
         .addTo(map);
 
     // Test getting layers
-    //$.getJSON( "proj/proj4defs.json").done(function( data ) {
-    //    proj4defs = data;
-    //    var autocompdata = [];
-    //    $.each( data, function( key, val ) {
-    //        autocompdata.push({label:key+'-'+val[0],value:key})
-    //    });
+    $.getJSON( "/gisdata/geojson/filelist.json").done(function( data ) {
+        proj4defs = data;
+        var autocompdata = [];
+        $.each( data, function( key, val ) {
+            for( var indx = 0; indx < val.length; indx ++ ){
+                var filename = val[indx];
+                var featureLayer = L.mapbox.featureLayer()
+                    .loadURL('/gisdata/geojson/'+filename)
+                    .addTo(map);
+            }
+            autocompdata.push({label:key+'-'+val[0],value:key})
+        });
     //    $( "#projection" ).autocomplete({
     //        source: autocompdata,
     //        minLength: 3,
@@ -35,10 +41,10 @@ $(document).ready(function() {
     //    // Set labels for output... left always 4326, right is proj selection
     //    $('#wgslabel').text('EPSG:4326 - ' + proj4defs['4326'][0]);
     //    $('#projlabel').text('EPSG:3857 - ' + proj4defs['3857'][0]);
-    //}).fail(function( jqxhr, textStatus, error ) {
-    //    var err = textStatus + ", " + error;
-    //    console.log( "Request Failed: " + err );
-    //});
+    }).fail(function( jqxhr, textStatus, error ) {
+        var err = textStatus + ", " + error;
+        console.log( "Request Failed: " + err );
+    });
 
 });
 
