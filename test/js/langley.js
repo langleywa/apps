@@ -1,24 +1,33 @@
-var map, rsidebar, lsidebar, drawControl, drawnItems = null;
+var map, layerControl, rsidebar, lsidebar, drawControl, drawnItems = null;
 
 $(document).ready(function() {
 
-    map = L.mapbox.map('map', 'examples.map-i86nkdio')
-        .setView([48.0369, -122.4085], 13);
+    var map = L.map('map').setView([48.0369, -122.4085], 13);
 
     var featureLayer = L.mapbox.featureLayer()
         .loadURL('/gisdata/geojson/citylimitsline_4326.geojson')
         .addTo(map);
+
+    layerControl = L.control.layers({
+        'Base Map': L.mapbox.tileLayer('examples.map-i87786ca').addTo(map),
+        'Grey Map': L.mapbox.tileLayer('examples.map-20v6611k')
+    }, {
+        "City Limits": featureLayer
+    },{'collapsed': false});
+
+    layerControl.addTo(map);
 
     // Test getting layers
     $.getJSON( "/gisdata/geojson/filelist.json").done(function( data ) {
         proj4defs = data;
         var autocompdata = [];
         $.each( data, function( key, val ) {
-            for( var indx = 0; indx < val.length; indx ++ ){
+            for( var indx = 0; indx < 5; indx++ ){ //val.length; indx ++ ){
                 var filename = val[indx];
                 var featureLayer = L.mapbox.featureLayer()
-                    .loadURL('/gisdata/geojson/'+filename)
-                    .addTo(map);
+                    .loadURL('/gisdata/geojson/'+filename);
+                    //.addTo(map);
+                layerControl.addOverlay(featureLayer,filename);
             }
             autocompdata.push({label:key+'-'+val[0],value:key})
         });
