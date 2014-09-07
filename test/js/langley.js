@@ -9,8 +9,8 @@ $(document).ready(function() {
         .loadURL('/gisdata/geojson/citylimitsline_4326.geojson')
         .addTo(map);
 
-    var southWest = L.latLng(48.039701, -122.409571),
-    northEast = L.latLng(48.040085, -122.405913),
+    var southWest = L.latLng(48.039464, -122.409765),
+    northEast = L.latLng(48.040278, -122.406004),
     bounds = L.latLngBounds(southWest, northEast);
 
     var tileLayer = L.tileLayer('/gisdata/tiles/langley-2nd-street-2014/{z}/{x}/{y}.png', {foo: 'bar', tms: true, minZoom:1, maxZoom:22, bounds:bounds}).addTo(map);
