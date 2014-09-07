@@ -9,7 +9,7 @@ $(document).ready(function() {
         .loadURL('/gisdata/geojson/citylimitsline_4326.geojson')
         .addTo(map);
 
-    var southWest = L.latLng(48.039801, -122.409571),
+    var southWest = L.latLng(48.039701, -122.409571),
     northEast = L.latLng(48.040085, -122.405913),
     bounds = L.latLngBounds(southWest, northEast);
 
