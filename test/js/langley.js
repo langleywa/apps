@@ -3,16 +3,23 @@ var autocompdata = [];
 
 $(document).ready(function() {
 
-    var map = L.map('map').setView([48.0369, -122.4085], 13);
+    var map = L.map('map', {maxZoom: 22}).setView([48.03, -122.4085], 14);
 
     var featureLayer = L.mapbox.featureLayer()
         .loadURL('/gisdata/geojson/citylimitsline_4326.geojson')
         .addTo(map);
 
+    var southWest = L.latLng(48.039801, -122.409571),
+    northEast = L.latLng(48.040085, -122.405913),
+    bounds = L.latLngBounds(southWest, northEast);
+
+    var tileLayer = L.tileLayer('/gisdata/tiles/langley-2nd-street-2014/{z}/{x}/{y}.png', {foo: 'bar', tms: true, minZoom:16, maxZoom:22, bounds:bounds}).addTo(map);
+
     layerControl = L.control.layers({
         'Base Map': L.mapbox.tileLayer('examples.map-i87786ca').addTo(map),
         'Grey Map': L.mapbox.tileLayer('examples.map-20v6611k')
     }, {
+        "Quadcopter Stitch": tileLayer,
         "City Limits": featureLayer
     },{'collapsed': false});
 
