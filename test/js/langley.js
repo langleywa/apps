@@ -1,4 +1,6 @@
 var map, layerControl, rsidebar, lsidebar, drawControl, drawnItems = null;
+var apikey = window.location.hostname.indexOf('langleywa.github.io') !== -1 ? 'reprojected.g9on3k93' : 'pk_test_gmIyREg3sKzAiyMkAEeCsxUG';
+
 var autocompdata = [];
 
 $(document).ready(function() {
