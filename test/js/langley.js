@@ -1,10 +1,12 @@
 var map, layerControl, rsidebar, lsidebar, drawControl, drawnItems = null;
-var apikey = window.location.hostname.indexOf('langleywa.github.io') !== -1 ? 'reprojected.g9on3k93' : 'pk_test_gmIyREg3sKzAiyMkAEeCsxUG';
+//var apikey = window.location.hostname.indexOf('langleywa.github.io') !== -1 ? 'pk.eyJ1IjoicmVwcm9qZWN0ZWQiLCJhIjoia1cxMlpXOCJ9.pAgBgCEHPp5WByVJlgRZQQ' : 'pk_test_gmIyREg3sKzAiyMkAEeCsxUG';
+var apikey = 'pk.eyJ1IjoicmVwcm9qZWN0ZWQiLCJhIjoia1cxMlpXOCJ9.pAgBgCEHPp5WByVJlgRZQQ';
 
 var autocompdata = [];
 
 $(document).ready(function() {
 
+    L.mapbox.accessToken = apikey;
     var map = L.map('map', {maxZoom: 22}).setView([48.03, -122.4085], 14);
 
     var featureLayer = L.mapbox.featureLayer()
@@ -18,8 +20,8 @@ $(document).ready(function() {
     var tileLayer = L.tileLayer('/gisdata/tiles/langley-2nd-street-2014/{z}/{x}/{y}.png', {foo: 'bar', tms: true, minZoom:1, maxZoom:22, bounds:bounds}).addTo(map);
 
     layerControl = L.control.layers({
-        'Base Map': L.mapbox.tileLayer('examples.map-i87786ca').addTo(map),
-        'Grey Map': L.mapbox.tileLayer('examples.map-20v6611k')
+        'Streets Map': L.mapbox.tileLayer('mapbox.streets').addTo(map),
+        'Satellite Map': L.mapbox.tileLayer('mapbox.satellite')
     }, {
         "Quadcopter Stitch": tileLayer,
         "City Limits": featureLayer
